@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>บะหมี่กึ่งสำเร็จรูป</title>
+<style>
+  :root {
+    --bg: #fff8ec;
+    --card: #ffffff;
+    --ink: #2b1d12;
+    --muted: #7a6a5a;
+    --accent: #d9480f;
+    --line: #f0e2cc;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Sarabun", "Noto Sans Thai", "Tahoma", sans-serif;
+    line-height: 1.5;
+  }
+  header { text-align: center; padding: 48px 16px 24px; }
+  header h1 { margin: 0 0 6px; font-size: clamp(28px, 6vw, 40px); }
+  header p { margin: 0; color: var(--muted); }
+  main {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 16px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 14px rgba(120, 70, 20, .08);
+  }
+  .photo {
+    aspect-ratio: 4 / 3;
+    background: #fdebd0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    font-size: 14px;
+  }
+  .photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .body { padding: 16px 18px 20px; }
+  .sku { font-size: 12px; letter-spacing: .08em; color: var(--muted); }
+  .name { margin: 4px 0 12px; font-size: 20px; font-weight: 700; }
+  .row { display: flex; justify-content: space-between; align-items: baseline; }
+  .price { font-size: 28px; font-weight: 800; color: var(--accent); }
+  .price small { font-size: 14px; font-weight: 600; }
+  .weight { color: var(--muted); }
+  footer { text-align: center; color: var(--muted); font-size: 13px; padding: 32px 16px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>บะหมี่กึ่งสำเร็จรูป</h1>
+  <p>รายการสินค้า</p>
+</header>
+
+<main id="products"></main>
+
+<footer>ราคาเป็นสกุลเงินบาท</footer>
+
+<script>
+  // แก้ไขข้อมูลสินค้าได้ที่นี่ แล้วหน้าเว็บจะอัปเดตเอง
+  // ถ้าจะใช้รูปถ่ายจริง ให้อัปโหลดไว้ในโฟลเดอร์ images แล้วเปลี่ยนชื่อไฟล์ตรงนี้
+  const products = [
+    { sku: "NOODLE-01", name: "บะหมี่รสหมูสับ",   price: 12, weight: "60 กรัม", images: ["images/sku01.jpg", "images/sku01.png", "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0MDAgMzAwIiB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCI+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNlODU5MGMiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNiMDJhMGEiLz48L2xpbmVhckdyYWRpZW50Pgo8bGluZWFyR3JhZGllbnQgaWQ9ImJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmM2RjIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjZmRlMGIwIi8+PC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0idXJsKCNiZykiLz4KPGVsbGlwc2UgY3g9IjIwMCIgY3k9IjI2OCIgcng9IjEyMCIgcnk9IjEyIiBmaWxsPSIjMDAwIiBvcGFjaXR5PSIuMTIiLz4KPHBhdGggZD0iTTEwNSA0MCBRMjAwIDI0IDI5NSA0MCBMMzA1IDI1OCBRMjAwIDI3NiA5NSAyNTggWiIgZmlsbD0idXJsKCNnKSIgc3Ryb2tlPSIjMDAwMDAwMjIiIHN0cm9rZS13aWR0aD0iMiIvPgo8cGF0aCBkPSJNMTA1IDQwIFEyMDAgMjQgMjk1IDQwIEwyOTYgNTYgUTIwMCA0MCAxMDQgNTYgWiIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iLjM1Ii8+CjxwYXRoIGQ9Ik05NSAyNTggUTIwMCAyNzYgMzA1IDI1OCBMMzA0IDI0NCBRMjAwIDI2MiA5NiAyNDQgWiIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iLjI1Ii8+CjxnIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSIzIiBvcGFjaXR5PSIuNTUiPjxwYXRoIGQ9Ik0xMDggNzAgTDExMCAyMzIiLz48cGF0aCBkPSJNMjkyIDcwIEwyOTAgMjMyIi8+PC9nPgo8cmVjdCB4PSIxMjgiIHk9Ijc4IiB3aWR0aD0iMTQ0IiBoZWlnaHQ9IjM0IiByeD0iMTciIGZpbGw9IiNmZmYiLz4KPHRleHQgeD0iMjAwIiB5PSIxMDEiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJUYWhvbWEsICdOb3RvIFNhbnMgVGhhaScsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTkiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiNjMjQxMGMiPuC4muC4sOC4q+C4oeC4teC5iOC4geC4tuC5iOC4h+C4quC4s+C5gOC4o+C5h+C4iOC4o+C4ueC4mzwvdGV4dD4KPGNpcmNsZSBjeD0iMjAwIiBjeT0iMTY4IiByPSI0OCIgZmlsbD0iI2ZmZiIgb3BhY2l0eT0iLjk1Ii8+CjxnIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2YyYjg0YiIgc3Ryb2tlLXdpZHRoPSI1IiBzdHJva2UtbGluZWNhcD0icm91bmQiPgo8cGF0aCBkPSJNMTY1IDE3MCBRMTgwIDE1MCAxOTUgMTcwIFQyMjUgMTcwIFQyNDAgMTY4Ii8+PHBhdGggZD0iTTE2MiAxODIgUTE3OCAxNjIgMTk0IDE4MiBUMjI2IDE4MiBUMjQyIDE4MCIvPjxwYXRoIGQ9Ik0xNjggMTU4IFExODIgMTQwIDE5NyAxNTggVDIyNiAxNTgiLz48L2c+CjxnIGZpbGw9IiNhNTQ3MmEiPjxjaXJjbGUgY3g9IjE4MiIgY3k9IjE1MCIgcj0iNSIvPjxjaXJjbGUgY3g9IjE5OCIgY3k9IjE0NCIgcj0iNSIvPjxjaXJjbGUgY3g9IjIxNCIgY3k9IjE1MCIgcj0iNSIvPjxjaXJjbGUgY3g9IjE5MCIgY3k9IjE1OCIgcj0iNC41Ii8+PGNpcmNsZSBjeD0iMjA2IiBjeT0iMTU4IiByPSI0LjUiLz48L2c+CjxnIGZpbGw9IiM0YzlhMmEiPjxyZWN0IHg9IjE3NiIgeT0iMTM4IiB3aWR0aD0iMTAiIGhlaWdodD0iMyIgcng9IjEuNSIgdHJhbnNmb3JtPSJyb3RhdGUoLTIwIDE4MSAxNDApIi8+PHJlY3QgeD0iMjEyIiB5PSIxMzgiIHdpZHRoPSIxMCIgaGVpZ2h0PSIzIiByeD0iMS41IiB0cmFuc2Zvcm09InJvdGF0ZSgyMCAyMTcgMTQwKSIvPjwvZz4KPHRleHQgeD0iMjAwIiB5PSIyMzYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJUYWhvbWEsICdOb3RvIFNhbnMgVGhhaScsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjIiIGZvbnQtd2VpZ2h0PSI4MDAiIGZpbGw9IiNmZmYiIHN0cm9rZT0iIzAwMDMiIHN0cm9rZS13aWR0aD0iLjYiPuC4o+C4quC4q+C4oeC4ueC4quC4seC4mjwvdGV4dD4KPHRleHQgeD0iMjAwIiB5PSIyNTIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJUYWhvbWEsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTEiIGZpbGw9IiNmZmYiIG9wYWNpdHk9Ii45Ij42MCDguIHguKPguLHguKEgwrcgTk9PRExFLTAxPC90ZXh0Pgo8L3N2Zz4="] },
+    { sku: "NOODLE-02", name: "บะหมี่รสไข่เค็ม", price: 15, weight: "65 กรัม", images: ["images/sku02.jpg", "images/sku02.png", "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0MDAgMzAwIiB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCI+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNmMmE1MTYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNjMjZhMDAiLz48L2xpbmVhckdyYWRpZW50Pgo8bGluZWFyR3JhZGllbnQgaWQ9ImJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmM2RjIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjZmRlMGIwIi8+PC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0idXJsKCNiZykiLz4KPGVsbGlwc2UgY3g9IjIwMCIgY3k9IjI2OCIgcng9IjEyMCIgcnk9IjEyIiBmaWxsPSIjMDAwIiBvcGFjaXR5PSIuMTIiLz4KPHBhdGggZD0iTTEwNSA0MCBRMjAwIDI0IDI5NSA0MCBMMzA1IDI1OCBRMjAwIDI3NiA5NSAyNTggWiIgZmlsbD0idXJsKCNnKSIgc3Ryb2tlPSIjMDAwMDAwMjIiIHN0cm9rZS13aWR0aD0iMiIvPgo8cGF0aCBkPSJNMTA1IDQwIFEyMDAgMjQgMjk1IDQwIEwyOTYgNTYgUTIwMCA0MCAxMDQgNTYgWiIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iLjM1Ii8+CjxwYXRoIGQ9Ik05NSAyNTggUTIwMCAyNzYgMzA1IDI1OCBMMzA0IDI0NCBRMjAwIDI2MiA5NiAyNDQgWiIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iLjI1Ii8+CjxnIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSIzIiBvcGFjaXR5PSIuNTUiPjxwYXRoIGQ9Ik0xMDggNzAgTDExMCAyMzIiLz48cGF0aCBkPSJNMjkyIDcwIEwyOTAgMjMyIi8+PC9nPgo8cmVjdCB4PSIxMjgiIHk9Ijc4IiB3aWR0aD0iMTQ0IiBoZWlnaHQ9IjM0IiByeD0iMTciIGZpbGw9IiNmZmYiLz4KPHRleHQgeD0iMjAwIiB5PSIxMDEiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJUYWhvbWEsICdOb3RvIFNhbnMgVGhhaScsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTkiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiNiNDUzMDkiPuC4muC4sOC4q+C4oeC4teC5iOC4geC4tuC5iOC4h+C4quC4s+C5gOC4o+C5h+C4iOC4o+C4ueC4mzwvdGV4dD4KPGNpcmNsZSBjeD0iMjAwIiBjeT0iMTY4IiByPSI0OCIgZmlsbD0iI2ZmZiIgb3BhY2l0eT0iLjk1Ii8+CjxnIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2YyYjg0YiIgc3Ryb2tlLXdpZHRoPSI1IiBzdHJva2UtbGluZWNhcD0icm91bmQiPgo8cGF0aCBkPSJNMTY1IDE3MCBRMTgwIDE1MCAxOTUgMTcwIFQyMjUgMTcwIFQyNDAgMTY4Ii8+PHBhdGggZD0iTTE2MiAxODIgUTE3OCAxNjIgMTk0IDE4MiBUMjI2IDE4MiBUMjQyIDE4MCIvPjxwYXRoIGQ9Ik0xNjggMTU4IFExODIgMTQwIDE5NyAxNTggVDIyNiAxNTgiLz48L2c+CjxlbGxpcHNlIGN4PSIyMDAiIGN5PSIxNTAiIHJ4PSIxNyIgcnk9IjEzIiBmaWxsPSIjZmZmIiBzdHJva2U9IiNlM2NmYTAiIHN0cm9rZS13aWR0aD0iMiIvPgo8Y2lyY2xlIGN4PSIyMDAiIGN5PSIxNTAiIHI9IjgiIGZpbGw9IiNmNTlmMDAiLz48Y2lyY2xlIGN4PSIxOTciIGN5PSIxNDciIHI9IjIuNSIgZmlsbD0iI2ZmZDQzYiIvPgo8ZyBmaWxsPSIjNGM5YTJhIj48cmVjdCB4PSIxNzIiIHk9IjE0MCIgd2lkdGg9IjEwIiBoZWlnaHQ9IjMiIHJ4PSIxLjUiIHRyYW5zZm9ybT0icm90YXRlKC0yMCAxNzcgMTQyKSIvPjxyZWN0IHg9IjIxOCIgeT0iMTQwIiB3aWR0aD0iMTAiIGhlaWdodD0iMyIgcng9IjEuNSIgdHJhbnNmb3JtPSJyb3RhdGUoMjAgMjIzIDE0MikiLz48L2c+Cjx0ZXh0IHg9IjIwMCIgeT0iMjM2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iVGFob21hLCAnTm90byBTYW5zIFRoYWknLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjIyIiBmb250LXdlaWdodD0iODAwIiBmaWxsPSIjZmZmIiBzdHJva2U9IiMwMDAzIiBzdHJva2Utd2lkdGg9Ii42Ij7guKPguKrguYTguILguYjguYDguITguYfguKE8L3RleHQ+Cjx0ZXh0IHg9IjIwMCIgeT0iMjUyIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iVGFob21hLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjExIiBmaWxsPSIjZmZmIiBvcGFjaXR5PSIuOSI+NjUg4LiB4Lij4Lix4LihIMK3IE5PT0RMRS0wMjwvdGV4dD4KPC9zdmc+"] }
+  ];
+
+  const root = document.getElementById("products");
+
+  products.forEach(p => {
+    const card = document.createElement("article");
+    card.className = "card";
+
+    const photo = document.createElement("div");
+    photo.className = "photo";
+    const img = document.createElement("img");
+    img.alt = p.name;
+    let i = 0;
+    img.onerror = () => {
+      i++;
+      if (i < p.images.length) { img.src = p.images[i]; }
+      else { photo.textContent = "ไม่พบรูปภาพ"; }
+    };
+    img.src = p.images[0];
+    photo.appendChild(img);
+
+    const body = document.createElement("div");
+    body.className = "body";
+
+    const sku = document.createElement("div");
+    sku.className = "sku";
+    sku.textContent = p.sku;
+
+    const name = document.createElement("h2");
+    name.className = "name";
+    name.textContent = p.name;
+
+    const row = document.createElement("div");
+    row.className = "row";
+
+    const price = document.createElement("div");
+    price.className = "price";
+    price.append(String(p.price) + " ");
+    const unit = document.createElement("small");
+    unit.textContent = "บาท";
+    price.appendChild(unit);
+
+    const weight = document.createElement("div");
+    weight.className = "weight";
+    weight.textContent = p.weight;
+
+    row.append(price, weight);
+    body.append(sku, name, row);
+    card.append(photo, body);
+    root.appendChild(card);
+  });
+</script>
+</body>
+</html>
